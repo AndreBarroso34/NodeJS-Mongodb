@@ -1,5 +1,5 @@
 var Express =require("express");
-var MongoCLient=require("mongodb").MongoClient;
+var MongocLient=require("mongodb").MongoClient;
 var cors=require("cors");
 const multer=require("multer");
 const { MongoClient } = require("mongodb");
