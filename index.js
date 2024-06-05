@@ -1,5 +1,5 @@
 var Express =require("express");
-var Mongoclient=require("mongodb").MongoClient;
+var MongoClient=require("mongodb").MongoClient;
 var cors=require("cors");
 const multer=require("multer");
 //const { MongoClient } = require("mongodb");
@@ -14,9 +14,23 @@ var DATEBASENAME="todoappdb";
 var database;
 
 app.listen(5038,()=> {
-    Mongoclient.connect(CONNECTION_STRING,(error,client)=>{
+    MongoClient.connect(CONNECTION_STRING,(error,client)=>{
+        //console.log("passo#1");
+        if (error) {
+            console.error("Ligação nao conseguida");
+            console.error(error);
+            return;
+        }
         database=client.db(DATEBASENAME);
         console.log("Mongo DB Connection Successful");
     })
 
-})
+});
+
+app.get('/api/todoapp/GetNote', (request, response) => {
+    database.collection("todoappcollection").find({}).toArray((error, result)=> {
+        response.send(result);
+    });
+});
+
+
